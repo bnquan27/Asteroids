@@ -10,7 +10,12 @@ from shot import Shot
 
 def main():
     pygame.init()
+    pygame.font.init()
     clock = pygame.time.Clock()
+
+    score = 0
+    font = pygame.font.SysFont(None, 50)
+
     dt = 0
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     x = SCREEN_WIDTH / 2
@@ -46,9 +51,15 @@ def main():
                     log_event("asteroid_shot")
                     each_shot.kill()
                     each_asteroid.split()
+                    score += 10
         for obj in drawable:
             obj.draw(screen)
+
+        score_display = font.render(f"Score : {score}", True, "White")
+        screen.blit(score_display, (10, 10))
+
         pygame.display.flip()
+        pygame.display.update()
         dt = clock.tick(60) / 1000
 
 
