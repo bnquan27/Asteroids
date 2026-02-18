@@ -8,9 +8,12 @@ from constants import (
     PLAYER_SHOOT_SPEED,
     PLAYER_SPEED,
     PLAYER_TURN_SPEED,
+    SCREEN_HEIGHT,
+    SCREEN_WIDTH,
     SHOT_RADIUS,
 )
 from circleshape import CircleShape
+from logger import log_event
 from shot import Shot
 
 
@@ -19,6 +22,7 @@ class Player(CircleShape):
         super().__init__(x, y, PLAYER_RADIUS)
         self.rotation = 0
         self.cd = 0
+        self.lives = 3
 
     def triangle(self):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
@@ -65,3 +69,7 @@ class Player(CircleShape):
             sh.velocity = sh.velocity.rotate(self.rotation)
             sh.velocity *= PLAYER_SHOOT_SPEED
             self.cd = PLAYER_SHOOT_COOLDOWN_SECONDS
+
+    def respawn(self):
+        self.position = pygame.Vector2(SCREEN_HEIGHT // 2, SCREEN_WIDTH // 2)
+        self.lives -= 1

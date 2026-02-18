@@ -44,12 +44,15 @@ def main():
         for obj in asteroids:
             if obj.collides_with(me):
                 log_event("player_hit")
-                end_display = font.render("YOU DIE", True, "White")
-                screen.blit(end_display, (x, y))
-                pygame.display.update()
-                time.sleep(5)
-                print("Game over!")
-                sys.exit()
+                if me.lives > 0:
+                    me.respawn()
+                else:
+                    end_display = font.render("YOU DIE", True, "White")
+                    screen.blit(end_display, (x, y))
+                    pygame.display.update()
+                    time.sleep(5)
+                    print("Game over!")
+                    sys.exit()
         for each_asteroid in asteroids:
             for each_shot in shots:
                 if each_shot.collides_with(each_asteroid):
