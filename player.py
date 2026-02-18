@@ -1,5 +1,4 @@
-import math
-import time
+import random
 import pygame
 from constants import (
     PLAYER_RADIUS,
