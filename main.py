@@ -1,5 +1,6 @@
 import pygame
 import sys
+import time
 from asteroid import Asteroid
 from constants import SCREEN_HEIGHT, SCREEN_WIDTH
 from logger import log_event, log_state
@@ -43,6 +44,10 @@ def main():
         for obj in asteroids:
             if obj.collides_with(me):
                 log_event("player_hit")
+                end_display = font.render("YOU DIE", True, "White")
+                screen.blit(end_display, (x, y))
+                pygame.display.update()
+                time.sleep(5)
                 print("Game over!")
                 sys.exit()
         for each_asteroid in asteroids:
